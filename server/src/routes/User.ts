@@ -7,15 +7,15 @@ import { getCookieOptions } from "../utils";
 
 const useSecureAuth : boolean = process.env.NODE_ENV !== 'development';
 
-export const UserRouter : Router = express.Router();
+export const AuthRouter : Router = express.Router();
 
 
-UserRouter.post('/register', async (req : Request, res: Response) => {
+AuthRouter.post('/register', async (req : Request, res: Response) => {
     const response: ResponseType = await CreateUser(req.body)
     res.send(response);
 })
 
-UserRouter.post('/login', async (req: Request, res: Response) => {
+AuthRouter.post('/login', async (req: Request, res: Response) => {
     const response : ResponseType = await LoginUser(req.body);
     if(response.success) {
         const user = response.data as any;
@@ -28,7 +28,7 @@ UserRouter.post('/login', async (req: Request, res: Response) => {
     return res.status(response.status as number).send(response);
 });
 
-UserRouter.get('/', authenticated, async (req, res) => {
+AuthRouter.get('/', authenticated, async (req, res) => {
     const user = (req as any).user.user;
 
     return res.status(200).send({
@@ -39,7 +39,7 @@ UserRouter.get('/', authenticated, async (req, res) => {
     });
 });
 
-UserRouter.delete('/', authenticated, (req: Request, res: Response) => {
+AuthRouter.delete('/', authenticated, (req: Request, res: Response) => {
     res.cookie('farm-token', '', {
         maxAge: -100,
     })

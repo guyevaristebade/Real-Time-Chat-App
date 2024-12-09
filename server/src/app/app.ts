@@ -3,7 +3,7 @@ import compression from 'compression'
 import cookieParser from "cookie-parser";
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import { UserRouter } from "../routes";
+import { AuthRouter } from "../routes";
 import helmet from "helmet";
 import morgan from "morgan";
 
@@ -24,5 +24,5 @@ app.use(cors({
     origin: process.env.FRONT_END_URL
 }))
 
-app.use('/api/auth', UserRouter)
+app.use('/api/auth', AuthRouter)
 

@@ -20,6 +20,9 @@ const MessageSchema : Schema = new Schema({
         type : String,
         required : true
     },
+    image : {
+        type : String,
+    },
     is_read : {
         type : Boolean,
         default : false
