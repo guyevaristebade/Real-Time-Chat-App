@@ -20,29 +20,24 @@ const UserSchema : Schema = new Schema({
         required : true,
         trim : true
     },
-    role: { 
-        type: String, 
-        enum: ['user', 'admin', 'moderator'], default: 'user' 
+    status: { 
+        type: String,
+        enum: ['online', 'offline'],
+        default: 'offline' 
     },
-    isActive: { 
-        type: Boolean, 
-        default: true 
-    },
-    avatarUrl: { 
+    profile_picture: { 
         type: String 
-},
-    phoneNumber: { 
-        type: String 
-    },
-    verifiedAt: { 
-        type: Date 
     },
     lastLoginAt: { 
         type: Date 
     },
+    contacts : {
+        type : [Schema.Types.ObjectId],
+        ref : 'User'
+    }
 });
 
 UserSchema.set('timestamps', true)
 
 
-export const User = model("User",UserSchema);
+export const User = model("Users",UserSchema);
