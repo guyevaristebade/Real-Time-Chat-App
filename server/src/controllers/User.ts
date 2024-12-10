@@ -4,7 +4,7 @@ import { User } from "../models";
 import { sanitizeFilter } from "mongoose";
 import { passwordValidators } from "../utils";
 
-export const CreateUser = async (userData : IUserRegister): Promise<ResponseType> => {
+export const createUser = async (userData : IUserRegister): Promise<ResponseType> => {
     let response: ResponseType = {
         success : true
     }
@@ -59,7 +59,7 @@ export const CreateUser = async (userData : IUserRegister): Promise<ResponseType
     return  response;
 };
 
-export const LoginUser = async (userData : IUserLogin): Promise<ResponseType> => {
+export const loginUser = async (userData : IUserLogin): Promise<ResponseType> => {
     let response: ResponseType = {
         success : true,
         status: 200
@@ -91,10 +91,40 @@ export const LoginUser = async (userData : IUserLogin): Promise<ResponseType> =>
             return response;
         }
 
-        const { password: _, ...rest } = user.toObject();
+        user.status = 'online';
+        user.last_login_at = Date.now();
+        await user.save();
 
+        const { password: _, ...rest } = user.toObject();
+        
         response.msg = "Connexion réussie";
         response.data = rest
+
+    } catch (e : any) {
+        response.status = 500
+        response.success = false;
+        response.msg = e.message
+    }
+    return  response;
+}
+
+export const logoutUser = async (userId : string): Promise<ResponseType> => {
+    let response: ResponseType = {
+        success : true,
+        status: 200
+    }
+
+    try {
+        let user = await User.findById(userId);
+        if (!user) {
+            response.status = 400
+            response.success = false
+            response.msg = 'Aucun utilisateur trouvé';
+            return response;
+        }
+        user.status = 'offline';
+        await user.save();
+        response.msg = "Déconnexion réussie";
 
     } catch (e : any) {
         response.status = 500

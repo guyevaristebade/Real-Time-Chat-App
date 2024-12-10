@@ -28,7 +28,7 @@ const UserSchema : Schema = new Schema({
     profile_picture: { 
         type: String 
     },
-    lastLoginAt: { 
+    last_login_at: { 
         type: Date 
     },
     contacts : {

@@ -2,7 +2,7 @@ import { NextFunction, Response, Request } from 'express'
 import jwt from 'jsonwebtoken'
 
 export const authenticated = async (req: Request, res: Response, next: NextFunction): Promise<unknown> => {
-    let token = (req as any).cookies['farm-token']
+    let token = (req as any).cookies['chat-app-token']
 
     if (!token) {
         return res.status(401).send({ success: false, msg: 'Accès Non autorisé' })
