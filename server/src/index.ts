@@ -18,9 +18,15 @@ connectDB().then(() => {
         socket.on('disconnect', () => {
             console.log('Client disconnected');
         });
+
+        socket.on('chat message', (msg) => {
+            console.log('message: ' + msg);
+            io.emit('chat message', msg);
+        });
     });
 
     server.listen(PORT, () => {
         console.log(`Server is running on http://localhost:${PORT}`);
     });
+    
 })
