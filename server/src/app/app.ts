@@ -7,6 +7,7 @@ import { AuthRouter } from "../routes";
 import helmet from "helmet";
 import morgan from "morgan";
 import { UserRouter } from '../routes/User';
+import { ContactRouter } from '../routes/Contact';
 
 export const app : Express = express();
 
@@ -27,4 +28,5 @@ app.use(cors({
 
 app.use('/api/auth', AuthRouter)
 app.use('/api/user', UserRouter)
+app.use('/api/contacts', ContactRouter)
 

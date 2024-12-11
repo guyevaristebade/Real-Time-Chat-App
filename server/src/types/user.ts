@@ -9,7 +9,7 @@ export interface IUserRegister{
 }
 
 export interface IUserLogin{
-    email: string;
+    email_or_username: string;
     password: string;
 }
 export interface IUser extends Document {
@@ -17,9 +17,10 @@ export interface IUser extends Document {
     username: string;
     email: string;
     status : string;
-    contacts : Array<Schema.Types.ObjectId>;
+    contacts : Array<String>;
     last_login_at? : Date
     password? : string
+    __v? : number
 }
 
 

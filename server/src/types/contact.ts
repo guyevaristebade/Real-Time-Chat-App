@@ -1,13 +1,14 @@
+import { ObjectId } from "mongoose"
 
 export type ContactStatus = 'pending' | 'accepted' | 'blocked'
 
-export interface IContact{
-    user_id : string,
-    contact_user_id : string,
+export interface IContact {
+    user_id: ObjectId,
+    contact_user_id: ObjectId,
     status?: ContactStatus
 }
 
 export type ContactId = {
-    contact_id : string
+    contact_id : ObjectId
 }
 

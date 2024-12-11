@@ -65,9 +65,9 @@ export const loginUser = async (userData : IUserLogin): Promise<ResponseType> =>
         status: 200
     }
 
-    const { email, password } = userData;
+    const { email_or_username, password } = userData;
 
-    if(!email || !password){
+    if(!email_or_username || !password){
         response.status = 400
         response.success = false
         response.msg = 'Veuillez remplir tous les champs';
@@ -75,7 +75,9 @@ export const loginUser = async (userData : IUserLogin): Promise<ResponseType> =>
     }
 
     try {
-        let user = await User.findOne(sanitizeFilter({ email })).select("-__v -updatedAt -createdAt");
+        let user = await User.findOne(sanitizeFilter({ 
+            $or : [{email : email_or_username}, {username : email_or_username}]
+        })).select("-__v -updatedAt -createdAt");
 
 
         if (!user) {

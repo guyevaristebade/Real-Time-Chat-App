@@ -1,12 +1,12 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, ObjectId } from 'mongoose';
 
 const ContactSchema = new Schema({
-    user_id : {
+    sender_user_id : {
         type : Schema.Types.ObjectId,
         ref : 'Users',
         require : true
     },
-    contact_user_id :{
+    receiver_user_id :{
         type : Schema.Types.ObjectId,
         ref : 'Users',
         require : true
