@@ -34,41 +34,41 @@ export const searchUser = async (query: string, current_user_id : string): Promi
 
 
 // fonction qui permet à l'utilisateur courant d'ajouter un contact 
-export const addContact = async (current_user_id: string, contact_id: string): Promise<ResponseType> => {
-    let responsePayload: ResponseType = {
-        status: 200,
-        success: true,
-    };
+// export const addContact = async (current_user_id: string, contact_id: string): Promise<ResponseType> => {
+//     let responsePayload: ResponseType = {
+//         status: 200,
+//         success: true,
+//     };
 
-    try {
-        const currentUser  = await User.findById(current_user_id);
-        const contactUser = await User.findById(contact_id);
+//     try {
+//         const currentUser  = await User.findById(current_user_id);
+//         const contactUser = await User.findById(contact_id);
 
-        if (!currentUser || !contactUser) {
-            responsePayload.status = 404;
-            responsePayload.success = false;
-            responsePayload.msg = 'User not found';
-            return responsePayload;
-        }
+//         if (!currentUser || !contactUser) {
+//             responsePayload.status = 404;
+//             responsePayload.success = false;
+//             responsePayload.msg = 'User not found';
+//             return responsePayload;
+//         }
 
-        if (currentUser.contacts.includes(contact_id)) {
-            responsePayload.status = 400;
-            responsePayload.success = false;
-            responsePayload.msg = 'Contact already added';
-            return responsePayload;
-        }
+//         if (currentUser.contacts.includes(contact_id)) {
+//             responsePayload.status = 400;
+//             responsePayload.success = false;
+//             responsePayload.msg = 'Contact already added';
+//             return responsePayload;
+//         }
 
-        currentUser.contacts.push(contact_id);
-        await currentUser.save();
+//         currentUser.contacts.push(contact_id);
+//         await currentUser.save();
 
-        responsePayload.msg = 'Contact added successfully';
-        responsePayload.data = currentUser;
+//         responsePayload.msg = 'Contact added successfully';
+//         responsePayload.data = currentUser;
 
-    } catch (error) {
-        responsePayload.status = 500;
-        responsePayload.success = false;
-        responsePayload.msg = 'Internal server error';
-    }
+//     } catch (error) {
+//         responsePayload.status = 500;
+//         responsePayload.success = false;
+//         responsePayload.msg = 'Internal server error';
+//     }
 
-    return responsePayload;
-};
+//     return responsePayload;
+// };

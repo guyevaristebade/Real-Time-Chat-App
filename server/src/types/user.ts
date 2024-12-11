@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
 import { Request } from 'express';
-
+import { Schema } from 'mongoose';
 
 export interface IUserRegister{
     username: string;
@@ -17,7 +17,7 @@ export interface IUser extends Document {
     username: string;
     email: string;
     status : string;
-    contacts : Array<IUser>;
+    contacts : Array<Schema.Types.ObjectId>;
     last_login_at? : Date
     password? : string
 }
